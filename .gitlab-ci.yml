@@ -4,3 +4,4 @@ stages:
 
 include:
   - '/traefik/.gitlab-ci.yml'
+#  - '/<image>/.gitlab-ci.yml'

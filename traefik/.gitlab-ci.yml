@@ -1,0 +1,30 @@
+include:
+  - project: 'ventumsoftware/toolbox/gitlab-templates'
+    file: 'dind-template.yml'
+
+build-traefik-3.x:
+    stage: build
+    extends: .dind-template
+    only:
+      changes:
+        - traefik/**/*
+        - traefik/.gitlab-ci.yml
+        - .gitlab-ci.yml
+    script:
+      - ./login.sh
+      - ./build.sh ./traefik/3.x traefik:build-3-$CI_COMMIT_SHORT_SHA
+
+tag-traefik:
+  stage: tag
+  extends: .dind-template
+  only:
+    refs:
+      - main
+    changes:
+      - traefik/**/*
+      - traefik/.gitlab-ci.yml
+      - .gitlab-ci.yml
+  script:
+    - ./login.sh
+    - ./tag.sh traefik:build-3-$CI_COMMIT_SHORT_SHA traefik:3
+    - ./tag.sh traefik:3 traefik:latest

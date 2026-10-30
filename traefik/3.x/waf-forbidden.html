@@ -49,6 +49,7 @@ label.icon{cursor:pointer}
 <div class="head"><label class="icon" for="waf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5z"/><path d="m9.5 9.5 5 5m0-5-5 5"/></svg></label><h1>Toegang geweigerd</h1></div>
 <p>Je verzoek is geblokkeerd door onze beveiliging. Denk je dat dit onterecht is? Neem dan contact op met de beheerder van de website en vermeld onderstaande gegevens.</p>
 <dl>
+{{ if .TraceID }}<div><dt>Request-ID</dt><dd><span>{{ .TraceID }}</span></dd></div>{{ end }}
 <div><dt>Reden</dt><dd><span>{{ .RemediationReason }}</span></dd></div>
 <div><dt>IP-adres</dt><dd><span>{{ .ClientIP }}</span></dd></div>
 </dl>

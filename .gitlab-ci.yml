@@ -1,7 +1,0 @@
-stages:
-  - build
-  - tag
-
-include:
-  - '/traefik/.gitlab-ci.yml'
-#  - '/<image>/.gitlab-ci.yml'

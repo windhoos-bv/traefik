@@ -1,0 +1,7 @@
+displayName: Request ID
+type: middleware
+import: github.com/windhoos-bv/requestid
+summary: Sets a random request id header on every request and response.
+
+testData:
+  headerName: X-Request-Id

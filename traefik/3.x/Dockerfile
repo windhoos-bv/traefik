@@ -9,4 +9,5 @@ FROM traefik:v3.7
 
 # Load via experimental.localPlugins, so Traefik does not download the plugin on startup
 COPY --from=crowdsec-plugin /plugin /plugins-local/src/github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+COPY plugins/requestid /plugins-local/src/github.com/windhoos-bv/requestid
 COPY waf-forbidden.html /waf-forbidden.html

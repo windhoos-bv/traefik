@@ -1,14 +1,23 @@
 # Windhoos Infra Containers
 
-Deze repository bevat herbruikbare containers die we binnen (en buiten) Windhoos gebruiken.
+De container-images die Windhoos intern gebruikt. De images zijn openbaar beschikbaar.
 
-Let op dat alle containers in deze repository public zijn.
+> Dit is niet onze software. De images bouwen voort op bestaande open-sourceprojecten; deze repository bevat alleen onze aanpassingen daarop.
 
 ## Traefik
 
-### Request-ID
+Image: `ghcr.io/windhoos-bv/traefik` (tags `3`, `3.7`, `latest`)
 
-De image bevat een lokale plugin (`traefik/3.x/plugins/requestid`) die elk verzoek een willekeurige `X-Request-Id` geeft. Een meegestuurde `X-Request-Id` wordt standaard overschreven; zet `trustIncoming: true` om die te behouden. Het ID staat in de response-header, in de access log en op de WAF-pagina.
+Gebaseerd op de officiële [`traefik`](https://hub.docker.com/_/traefik)-image. Traefik is ontwikkeld door [Traefik Labs](https://traefik.io) en valt onder de [MIT-licentie](https://github.com/traefik/traefik/blob/master/LICENSE.md).
+
+### Wijzigingen
+
+- **CrowdSec-bouncer meegeleverd** – de [crowdsec-bouncer-traefik-plugin](https://github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin) (Apache-2.0) zit als lokale plugin in de image, zodat Traefik hem niet bij het opstarten hoeft te downloaden.
+- **Eigen WAF-pagina** – `/waf-forbidden.html` wordt getoond als een verzoek door CrowdSec wordt geblokkeerd.
+- **Request-ID-plugin** – eigen plugin (`traefik/3.x/plugins/requestid`) die elk verzoek een willekeurige `X-Request-Id` geeft. Het ID staat in de response-header, de access log en op de WAF-pagina. Een meegestuurde `X-Request-Id` wordt overschreven, tenzij `trustIncoming: true` is gezet.
+- **Wekelijkse rebuild** – de image wordt elke week opnieuw gebouwd om beveiligingsupdates van de base-image mee te nemen.
+
+### Configuratie
 
 Static config:
 
